@@ -20,26 +20,24 @@
 {{context|json_script:"data"}}
 {{tags|json_script:"tags"}}
 
-<div id="navbar">
-  <b-navbar toggleable="lg" fixed="top" sticky="true" type="dark" variant="dark">
+<div id="navbar"  fluid style="overflow: hidden;">
+  <b-navbar toggleable="lg" fixed="top" type="dark" variant="dark">
     <b-navbar-brand><img src="../static/logo_full.png" id="logo"></img></b-navbar-brand>
     <b-collapse id="nav-collapse" is-nav>
-      <!-- <b-navbar-nav>
-        <b-nav-item href="#" disabled>Tags</b-nav-item>
-      </b-navbar-nav> -->
+      <b-navbar-nav>
+        <b-nav-item href="#" title="Work In Progress..." disabled>Stats</b-nav-item>
+      </b-navbar-nav>
 
       <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto">
         <b-nav-item href="logout">Logout</b-nav-item>
+        <!-- <b-nav-item>{{username}}</b-nav-item> TODO -->
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>
 </div>
 
-<p/>
-
-
-<div id="form">
+<div id="form" style="margin-top: 100px;">
 <template>
   <b-container fluid>
     <b-form method="post">
@@ -57,8 +55,8 @@
        <b-col>
         {% for tag in tags %}
           <label for="{{tag.id_for_label}}"><p></p>
-            <b-form-checkbox-group name="tags" buttons>
-              <b-form-checkbox name="tags" id="id_tags" value="{{tag.tag}}" button>{{tag.tag}}</b-form-checkbox>
+            <b-form-checkbox-group name="tags">
+              <b-form-checkbox name="tags" id="{{id_for_label}}" value="{{tag.tag}}">{{tag.tag}}</b-form-checkbox>
             </b-form-checkbox-group>
           </label>
         {% endfor %}
@@ -66,15 +64,15 @@
       </b-row>
     </b-input-group>
   </b-form>
-</b-container>
+ </b-container>
 </template>
 </div>
-<p/>
 
-<div id="app">
+<p></p>
 
+<div id="app" fluid>
     <template>
-        <b-container fluid style="width: fit-content;">
+        <b-container fluid>
           <b-row>
             <b-col>
                 <b-input-group>
@@ -82,7 +80,7 @@
                     id="filter-input"
                     v-model="filter"
                     type="search"
-                    placeholder="Search User / Task"
+                    placeholder="Search User / Task / Tag"
                   ></b-form-input>
 
                   <b-input-group-append>
@@ -100,15 +98,15 @@
             :filter="filter"
             :filter-included-fields="filterOn"
             show-empty
-            responsive
+            responsive="true"
             hover
-            striped
-            fixed="False"
-            sticky-header="900px"
+            small="true"
+            fixed="false"
+            sticky-header="70vh"
             head-variant="dark"
             table-variant="dark"
             @filtered="onFiltered"
-          >
+          ></b-table>
         </b-container>
       </template>
     </div>

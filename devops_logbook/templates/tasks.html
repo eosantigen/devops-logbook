@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+
+<head>
+
+<!-- Load required Bootstrap and BootstrapVue CSS -->
+<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@2.21.2/dist/bootstrap-vue.css" />
+
+<!-- Load Vue followed by BootstrapVue -->
+<script src="//unpkg.com/vue@2.6.12/dist/vue.min.js"></script>
+<script src="//unpkg.com/bootstrap-vue@2.21.2/dist/bootstrap-vue.js"></script>
+
+<!-- Load the following for BootstrapVueIcons support -->
+<script src="//unpkg.com/bootstrap-vue@2.21.2/dist/bootstrap-vue-icons.js"></script>
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'main.css' %}" />
+
+</head>
+{{context|json_script:"data"}}
+{{tags|json_script:"tags"}}
+
+<div id="navbar">
+  <b-navbar toggleable="lg" fixed="top" sticky="true" type="dark" variant="dark">
+    <b-navbar-brand><img src="../static/logo_full.png" id="logo"></img></b-navbar-brand>
+    <b-collapse id="nav-collapse" is-nav>
+      <!-- <b-navbar-nav>
+        <b-nav-item href="#" disabled>Tags</b-nav-item>
+      </b-navbar-nav> -->
+
+      <!-- Right aligned nav items -->
+      <b-navbar-nav class="ml-auto">
+        <b-nav-item href="logout">Logout</b-nav-item>
+      </b-navbar-nav>
+    </b-collapse>
+  </b-navbar>
+</div>
+
+<p/>
+
+
+<div id="form">
+<template>
+  <b-container fluid>
+    <b-form method="post">
+      <b-row>
+        <b-col>
+            {% csrf_token %}
+            <b-input-group>
+              <b-form-input type="text" name="user" maxlength="100" required id="id_user" v-model="user" placeholder="User..." :state="taskState"></b-form-input>
+              <b-form-input type="text" name="task" maxlength="100" required id="id_task" v-model="task" placeholder="Task.." :state="taskState"></b-form-input>
+              <b-button type="submit" variant="info">Save</b-button>
+              <b-button @click="task = '', user = ''" variant="info">Clear</b-button>
+        </b-col>
+      </b-row>
+      <b-row>
+       <b-col>
+        {% for tag in tags %}
+          <label for="{{tag.id_for_label}}"><p></p>
+            <b-form-checkbox-group name="tags" buttons>
+              <b-form-checkbox name="tags" id="id_tags" value="{{tag.tag}}" button>{{tag.tag}}</b-form-checkbox>
+            </b-form-checkbox-group>
+          </label>
+        {% endfor %}
+        </b-col>
+      </b-row>
+    </b-input-group>
+  </b-form>
+</b-container>
+</template>
+</div>
+<p/>
+
+<div id="app">
+
+    <template>
+        <b-container fluid style="width: fit-content;">
+          <b-row>
+            <b-col>
+                <b-input-group>
+                  <b-form-input
+                    id="filter-input"
+                    v-model="filter"
+                    type="search"
+                    placeholder="Search User / Task"
+                  ></b-form-input>
+
+                  <b-input-group-append>
+                    <b-button :disabled="!filter" @click="filter = ''" variant="info">Clear</b-button>
+                  </b-input-group-append>
+                </b-input-group>
+              </b-form-group>
+            </b-col>
+          </b-row>
+          <!-- Main table element -->
+          <b-table
+            :items="items"
+            :fields="fields"
+            :current-page="currentPage"
+            :filter="filter"
+            :filter-included-fields="filterOn"
+            show-empty
+            responsive
+            hover
+            striped
+            fixed="False"
+            sticky-header="900px"
+            head-variant="dark"
+            table-variant="dark"
+            @filtered="onFiltered"
+          >
+        </b-container>
+      </template>
+    </div>
+
+  <script>
+    new Vue({
+      el: '#navbar'
+    }),
+    new Vue({
+      el: '#form',
+      computed: {
+        taskState() {
+          return this.task.length > 33 ? true : null
+        }
+      },
+      data() {
+        return {
+          task: '',
+          user: '',
+        }
+      }
+    }),
+    new Vue({
+
+        el: '#app',
+        data() {
+            return {
+                items: JSON.parse(document.getElementById('data').textContent),
+                fields: ['user', 'time', 'task', 'tags'],
+                totalRows: 1,
+                currentPage: 1,
+                filter: null,
+                filterOn: ['user', 'task', 'tags']
+            }
+        },
+        methods: {
+        onFiltered(filteredItems) {
+            this.totalRows = filteredItems
+            this.currentPage = true
+        }
+    }
+  })
+  </script>

@@ -9,12 +9,17 @@ A logbook web app with ActiveDirectory auth and Slack notifications for logged t
 - [BootstrapVue](https://bootstrap-vue.org)
 - [SQLite](https://www.sqlite.org/quickstart.html)
 
-### Python virtual environment setup for a clean installation
+### Python virtual environment setup
 
 0. `sudo apt install libsasl2-dev python-dev libldap2-dev libssl-dev`
 1. `python3 -m venv .venv`
-2. `pip install requirements.txt`
-3. `django-admin startproject devops_logbook_conf`
-4. `./manage.py createsuperuser`
-5. `./manage.py startapp devops_logbook`
-6. `./manage.py runserver`
+2. `pip install -r requirements.txt`
+3. `./manage.py makemigrations devops_logbook`
+4. `./manage.py migrate`
+
+### Clean installation
+
+1. `django-admin startproject devops_logbook_conf`
+2. `./manage.py createsuperuser`
+3. `./manage.py startapp devops_logbook`
+4. `./manage.py runserver`

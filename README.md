@@ -1,6 +1,6 @@
-### INFO
+### About
 
-A logbook web app with ActiveDirectory auth and Slack notifications for logged tasks. 
+A logbook web app with ActiveDirectory auth and Slack notifications for logged tasks.
 
 ### Built on
 
@@ -11,7 +11,7 @@ A logbook web app with ActiveDirectory auth and Slack notifications for logged t
 
 ### Python virtual environment setup
 
-0. `sudo apt install libsasl2-dev python-dev libldap2-dev libssl-dev`
+0. `sudo apt install libsasl2-dev python3-dev libldap2-dev libssl-dev`
 1. `python3 -m venv .venv`
 2. `pip install -r requirements.txt`
 3. `./manage.py makemigrations devops_logbook`

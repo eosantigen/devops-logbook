@@ -1,6 +1,6 @@
 ### About
 
-A logbook web app with ActiveDirectory auth and Slack notifications for logged tasks.
+A logbook web app with ActiveDirectory (LDAP) auth and Slack notifications for logged tasks.
 
 ### Built on
 
@@ -14,12 +14,7 @@ A logbook web app with ActiveDirectory auth and Slack notifications for logged t
 0. `sudo apt install libsasl2-dev python3-dev libldap2-dev libssl-dev`
 1. `python3 -m venv .venv`
 2. `pip install -r requirements.txt`
-3. `./manage.py makemigrations devops_logbook`
-4. `./manage.py migrate`
-
-### Clean installation
-
-1. `django-admin startproject devops_logbook_conf`
-2. `./manage.py createsuperuser`
-3. `./manage.py startapp devops_logbook`
-4. `./manage.py runserver`
+3. `source .venv/bin/activate`
+4. `./manage.py makemigrations devops_logbook`
+5. `./manage.py migrate`
+6. `./manage.py runserver`

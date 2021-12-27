@@ -13,8 +13,8 @@ A logbook web app with ActiveDirectory (LDAP) auth and Slack notifications for l
 
 0. `sudo apt install libsasl2-dev python3-dev libldap2-dev libssl-dev`
 1. `python3 -m venv .venv`
-2. `pip install -r requirements.txt`
-3. `source .venv/bin/activate`
+2. `source .venv/bin/activate`
+3. `pip install -r requirements.txt`
 4. `./manage.py makemigrations devops_logbook`
 5. `./manage.py migrate`
 6. `./manage.py runserver`

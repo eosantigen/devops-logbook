@@ -80,7 +80,7 @@
                     id="filter-input"
                     v-model="filter"
                     type="search"
-                    placeholder="Search User / Task / Tag"
+                    placeholder="Search: User / Time / Task / Tag"
                   ></b-form-input>
 
                   <b-input-group-append>
@@ -140,7 +140,7 @@
                 totalRows: 1,
                 currentPage: 1,
                 filter: null,
-                filterOn: ['user', 'task', 'tags']
+                filterOn: ['user', 'time', 'task', 'tags']
             }
         },
         methods: {

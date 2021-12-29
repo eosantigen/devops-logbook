@@ -1,5 +1,6 @@
-# from django.views.generic import CreateView
+from typing import final
 from django.shortcuts import render, redirect
+from django.utils.timezone import localdate, now
 from .models import Task, Tag
 from .forms import TaskForm, LoginForm
 from django.http import HttpResponse
@@ -12,19 +13,19 @@ def main(request):
     form = TaskForm()
     con = {'context': list(model), 'form': form, 'tags': list(tags)}
     if request.method == 'POST':
-      form = TaskForm(request.POST)
-      if form.is_valid():
-          if 'tags' not in request.POST:
-              copy = request.POST.copy()
-              copy['tags'] = '-'
-              f = form.save(commit=False)
-              f.tags = copy['tags']
-              form.save()
-          else: 
-              f = form.save(commit=False)
-              f.tags = request.POST.getlist('tags')
-              form.save()
-      return redirect('/')
+        form = TaskForm(request.POST)
+        if form.is_valid():
+            if 'tags' not in request.POST:
+                copy = request.POST.copy()
+                copy['tags'] = '-'
+                f = form.save(commit=False)
+                f.tags = copy['tags']
+                form.save()
+            else: 
+                f = form.save(commit=False)
+                f.tags = request.POST.getlist('tags')
+                form.save()
+        return redirect('/')
     else:
         form = TaskForm()
     return render(request, "tasks.html", con)

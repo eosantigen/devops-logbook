@@ -136,7 +136,7 @@
         data() {
             return {
                 items: JSON.parse(document.getElementById('data').textContent),
-                fields: ['user', 'time', 'task', 'tags'],
+                fields: ['user', {key: 'time', sortable: true}, 'task', 'tags'],
                 totalRows: 1,
                 currentPage: 1,
                 filter: null,

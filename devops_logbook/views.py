@@ -20,10 +20,14 @@ def main(request):
                 copy['tags'] = '-'
                 f = form.save(commit=False)
                 f.tags = copy['tags']
+                f.time = now().__format__("%b %d, %Y - %H:%M")
+                print(f.time)
                 form.save()
             else: 
                 f = form.save(commit=False)
                 f.tags = request.POST.getlist('tags')
+                f.time = now().__format__("%b %d, %Y - %H:%M")
+                print(f.time)
                 form.save()
         return redirect('/')
     else:

@@ -6,7 +6,7 @@ from django.utils import timezone
 class Task(models.Model):
 
     user = models.CharField(max_length=33)
-    time = models.CharField(max_length=333)
+    time = models.CharField(max_length=33)
     task = models.CharField(max_length=500)
     tags = models.CharField(max_length=100, default="-", null=True)
 

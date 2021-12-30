@@ -84,7 +84,7 @@
                   ></b-form-input>
 
                   <b-input-group-append>
-                    <b-button :disabled="!filter" @click="filter = ''" variant="info">Clear</b-button>
+                    <b-button :disabled="!filter" @click="filter = ''" variant="dark">Clear</b-button>
                   </b-input-group-append>
                 </b-input-group>
               </b-form-group>
@@ -100,12 +100,13 @@
             show-empty
             responsive="true"
             hover
-            striped
+            dark
+	    striped
             small="true"
-            fixed="false"
+            fixed="true"
             sticky-header="70vh"
             head-variant="dark"
-            table-variant="dark"
+            table-variant="secondary"
             @filtered="onFiltered"
           ></b-table>
         </b-container>

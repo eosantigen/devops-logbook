@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login
 
 
 def main(request):
-    model = Task.objects.values().all()
+    model = Task.objects.all().order_by('-time').values()
     tags = Tag.objects.values().all()
     form = TaskForm()
     con = {'context': list(model), 'form': form, 'tags': list(tags)}
@@ -19,12 +19,12 @@ def main(request):
                 copy['tags'] = '-'
                 f = form.save(commit=False)
                 f.tags = copy['tags']
-                f.time = now().__format__("%a, %b %d %Y - %H:%M")
+                f.time = now().__format__("%Y, %b %d - %H:%M")
                 form.save()
             else: 
                 f = form.save(commit=False)
                 f.tags = request.POST.getlist('tags')
-                f.time = now().__format__("%a, %b %d %Y - %H:%M")
+                f.time = now().__format__("%Y, %b %d - %H:%M")
                 form.save()
         return redirect('/')
     else:

@@ -1,8 +1,10 @@
+from django import views
 from django.urls import path
-from .views import main, user_login
+from django.views.generic import TemplateView
+
+from devops_logbook.views import Index
 
 
 urlpatterns = [
-    path('', main, name='list'),
-    path('login', user_login, name='login')
+    path('', Index.as_view(), name='list'),
 ]

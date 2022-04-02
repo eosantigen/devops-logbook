@@ -3,3 +3,4 @@ devops_logbook/migrations
 devops_logbook_conf/__pycache__
 devops_logbook/__pycache__
 db.sqlite3
+node_modules
